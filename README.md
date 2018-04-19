@@ -145,12 +145,72 @@ IMPORTANT NOTES:
    Donating to EFF:                    https://eff.org/donate-le
 ```
 
-Copie os arquivos que foram gerados par ao desktop ou alguma pasta pública:
+Copie os arquivos que foram gerados par ao desktop ou alguma pasta com acesso de leitura e escrita:
 
 ```
 cp /etc/letsencrypt/live/easycloudbr.com/fullchain.pem /home/suapasta/
 cp /etc/letsencrypt/live/easycloudbr.com/privkey.pem /home/suapasta/
 ```
+
+Voltando para o Settings do Console do App Engine clique na Aba SSL certificates, aqui você vai precisar fazer upload da chave pública que foi gerada pelo Let's Encrypt.
+
+![App Engine SSL](images/ssl.png)
+
+Na primeira opção (PEM encoded X.509 public key certificate) escolha o arquivo gerado com o nome fullchain.pem.
+Feito isso sua tela vai carregar o certificado conforme a imagem:
+
+![App Engine SSL](images/ssl2.png)
+
+Na segunda opção (Unencrypted PEM encoded RSA private key) da tela do SSL do App Engine vamos precisar do private key, para obter as informações vamos precisar entrar na pasta onde você salvou o privkey.pem e executar o comando:
+
+```
+sudo openssl rsa -inform pem -in privkey.pem -outform pem
+```
+
+Será exibido a seguinte mensagem:
+
+```
+writing RSA key
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEApy8m1PqaDZPZDYjwjuArRV/YcXiBqDJqEvrOr+GXQwTsKX9x
+g1D0RIBaHkOR3XNv4lERy4V4K+N5rk6tKVelylqqQNDAwfgoepZLfguXD8TvoUlo
+82Gx949H/xW6vnUKYLCFpqrC0FiAN5tbNOWjbBUyHoOl/sOA/TCi1Gx0Kn66aQCv
+l/Rg018PiSHy2o2Yrq14HrIhCvPnkQ7GAN1e+jdPjbi/wZIVCh1a/sl55ciwJjYk
+GLkuXj4bXJvE0gTw9jLKonEdm/p/DrrQFjOL/JxIKM+sYqtOdRvZVH0Gt2gmD8H7
+eqNpEWVMVhOJ4rccqc3wXr+B8Q/5fSpbFVzUFwIDAQABAoIBAEyUqLD+afq2MsKk
+a6zGuot4r+iqTpoBHd27zVl7eJJWeuc3XYPNXVbThHRAd1x9OE7u27viU32nIWHa
+4C8D2wmqJjqyZNl1FvWwSrxeCsBKcYnr2otBwQepNk1+YqBDdJF9ynrh1YMiRvkx
+zMGaPxWPT/nyS+M7IqbX1H6Bf2THEm9mTlk3MMJ9a5IO8T6T19WyqjsrknBpppRp
+v/dz8uo6xrgW9Dk0+vg4OZuyJTPE7eniUppdgfAqKvhDDCRMP/AK8oxYmtX95Li3
+4eIWu07rqnepjU8W/EA6mHYG8hB380bBxxT+ABciTLfrJtRJrycOZruwIniI3cCx
+w4ht48ECgYEA1jJaaXFtGAiVirlnbt/LImW30j0iCsrQhTxwQF0l+p26bqzb6AH9
+zNGt9qmGt+gy6oTDf2Pjrz/gYY/ivzKk/SVjSaY5WKXjgN3w3FbSboQElKETiQ1M
+qzhbMFKt5ZbEF8GL+8uAFvEqRB9KpC/IiNS2KPf6rVQy6NngrQNDa4kCgYEAx8/4
+Zb2xh9BuUtgHtrkfHrXAQ/fSWZ58wy/hGkiBX/FDh8qKQiNO7wuNbYJs4G9cHFmT
+JYlGF9FGeEClvvwvt9AJGDQZJSGKXa2PbidX2/bybHMQUI8DmiLw0YZvpy/nu8TW
+rZcmJItivPJ2XDzwY93Yl0Dqb6PCcHDx198gOp8CgYALizMsM5y5itzkWRGl/BGq
+jOjXP8wx4LRUOemizmJZm16M0GwZmOHgw/woKwLDrpPv56/RkcSXkU26dFK4Ezap
+Hfa35Wl5yZb1PwDYHyXAJwVILVYsMLdNEwB3Hj2Y/gMbdKbirxj8I4svmLAhISIh
+nbUjiBnOdZc4zWU6bc6YYQKBgQCsocQsst2lR7FppffUKND4SXNZxc1ZXJLSWJWV
+jbspV1tPAPC+/5587XA9gwfqSIw+ei2lqpqCjW7jCoepIF1h5D1XSfvHltji4scf
+FqLUCuGcTTV1RHqKO1Hw1MO2oK8IDaKkzAhKXprqQFl+i6/tuIge9hkWZ1fgqdRo
++//uZQKBgDzyPcUMui+3Y5XA5YaDDaAyGfpMC8i+X1GH5XeQwl99jtqfHRNTc22w
+jKLyLPKU9hgpBMnJsnuyMykDvCrZJpyfd8wgDzsS2pjXWY218xIUCEl96+i7fsHw
+j9dkLG8KOy0bSWgGffOHB0k/54vz0XWO+Wu7y6xhcPOtRHCp2lNe
+-----END RSA PRIVATE KEY-----
+```
+
+Temos que copiar essa mensagem desde -----BEGIN RSA PRIVATE KEY----- até -----END RSA PRIVATE KEY----- e colocar na segunda opção do SSL do App Engine conforme imagem:
+
+![App Engine SSL](images/ssl3.png)
+
+Clique no botão Upload. 
+Parabéns você acabou de gerar um certificado válido para sua aplicação!
+
+Você pode conferir seu certificado no site: 
+[sslshopper](https://www.sslshopper.com/)
+
+
 
 
 
