@@ -200,7 +200,7 @@ j9dkLG8KOy0bSWgGffOHB0k/54vz0XWO+Wu7y6xhcPOtRHCp2lNe
 -----END RSA PRIVATE KEY-----
 ```
 
-Temos que copiar essa mensagem desde -----BEGIN RSA PRIVATE KEY----- até -----END RSA PRIVATE KEY----- e colocar na segunda opção do SSL do App Engine conforme imagem:
+Temos que copiar essa mensagem desde -----BEGIN RSA PRIVATE KEY----- até -----END RSA PRIVATE KEY----- e colar na segunda opção do SSL do App Engine conforme imagem:
 
 ![App Engine SSL](images/ssl3.png)
 
