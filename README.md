@@ -58,11 +58,45 @@ Gerando o SSL
 Dentro da pasta letsencrypt vamos executar o comando
 
 ```bash
-sudo ./letsencrypt-auto certonly --manual --email seuemail@email.com -d seudominio.com -d www.seudominio.com
+sudo ./letsencrypt-auto certonly --manual --email seuemail@email.com -d seudominio.com
 ```
+Logo após esse comando o letencrpty vai apresentar a seguinte mensagem:
 
+```
+-------------------------------------------------------------------------------
+NOTE: The IP of this machine will be publicly logged as having requested this
+certificate. If you're running certbot in manual mode on a machine that is not
+your server, please ensure you're okay with that.
 
-Dentro do arquivo main.py temos um contexto /.well-known/acme-challenge/<challenge> configurado como @app.route('/.well-known/acme-challenge/<challenge>') o [Let’s Encrypt](https://letsencrypt.org/) utiliza esse contexto para validar e gerar o certificado ssl. Você vai precisar substituir dentro do dict da função a chave e os valores gerados pelo [Let’s Encrypt](https://letsencrypt.org/) conforme o código:
+Are you OK with your IP being logged?
+-------------------------------------------------------------------------------
+(Y)es/(N)o: Y
+
+```
+Confirme digitando "Y"
+
+O [Let’s Encrypt](https://letsencrypt.org/) vai criar uma chave e um valor que você precisa utilizar no código da aplicação que deseja gerar o SSL.
+
+Conforme pode observar no exemplo abaixo.
+
+```
+-------------------------------------------------------------------------------
+Create a file containing just this data:
+
+J_Y_SHt8Pcvd6aFDtvhvunP2z99YGJj8kDeDRpCU6xg.89n5ovJLN0aPGfXjM5TBFporRo0qvYDmO4nwmbvUxFk
+
+And make it available on your web server at this URL:
+
+http://easycloudbr.com/.well-known/acme-challenge/J_Y_SHt8Pcvd6aFDtvhvunP2z99YGJj8kDeDRpCU6xg
+
+-------------------------------------------------------------------------------
+Press Enter to Continue
+Waiting for verification...
+Cleaning up challenges
+```
+Nesse exemplo a chave será J_Y_SHt8Pcvd6aFDtvhvunP2z99YGJj8kDeDRpCU6xg e o valor J_Y_SHt8Pcvd6aFDtvhvunP2z99YGJj8kDeDRpCU6xg.89n5ovJLN0aPGfXjM5TBFporRo0qvYDmO4nwmbvUxFk
+
+Vamos precisar alterar o arquivo main.py nele temos um contexto /.well-known/acme-challenge/<challenge> configurado como @app.route('/.well-known/acme-challenge/<challenge>') o [Let’s Encrypt](https://letsencrypt.org/) utiliza esse contexto para validar e gerar o certificado ssl. Você vai precisar substituir dentro do dict da função a chave e os valores gerados pelo [Let’s Encrypt](https://letsencrypt.org/) conforme o código:
   
 ```python
 @app.route('/.well-known/acme-challenge/<challenge>')
@@ -73,6 +107,52 @@ def letsencrypt_check(challenge):
     }
     return flask.Response(response= challenge_response[challenge], status=200, mimetype='text/plain')
 ```
+
+Coformem os valores anteriomente citados o código ficaria assim:
+
+```python
+@app.route('/.well-known/acme-challenge/<challenge>')
+def letsencrypt_check(challenge):
+    challenge_response = {
+        "J_Y_SHt8Pcvd6aFDtvhvunP2z99YGJj8kDeDRpCU6xg":"J_Y_SHt8Pcvd6aFDtvhvunP2777Jj8kDeDRpCU6xg.89n5ovJL777jM5TBFporRo0qvYDmO4nwmbvUxFk",
+        "<challenge_token>":"<challenge_response>"
+    }
+    return flask.Response(response= challenge_response[challenge], status=200, mimetype='text/plain')
+ ```
+Salve o arquivo e faça um novo deploy na aplicação com o comando:
+
+```
+gcloud app deploy
+```
+
+Precione a tecla enter no terminal do [Let’s Encrypt](https://letsencrypt.org/) .
+
+Se tudo estiver correto será apresentado uma mensagem parecida com a mensagem abaixo:
+
+```
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/easycloudbr.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/easycloudbr.com/privkey.pem
+   Your cert will expire on 2018-07-18. To obtain a new or tweaked
+   version of this certificate in the future, simply run
+   letsencrypt-auto again. To non-interactively renew *all* of your
+   certificates, run "letsencrypt-auto renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+```
+
+Copie os arquivos que foram gerados par ao desktop ou alguma pasta pública:
+
+```
+cp /etc/letsencrypt/live/easycloudbr.com/fullchain.pem /home/suapasta/
+cp /etc/letsencrypt/live/easycloudbr.com/privkey.pem /home/suapasta/
+```
+
+
 
 
 
