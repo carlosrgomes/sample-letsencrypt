@@ -53,8 +53,15 @@ Siga as intruções e configure o domínio de sua aplicação. No final das conf
 
 ![App Engine Dominio](images/dominio1.png)
 
-Alterando a aplicação para gerar SSL
+Gerando o SSL
 ---
+Dentro da pasta letsencrypt vamos executar o comando
+
+```bash
+sudo ./letsencrypt-auto certonly --manual --email seuemail@email.com -d seudominio.com -d www.seudominio.com
+```
+
+
 Dentro do arquivo main.py temos um contexto /.well-known/acme-challenge/<challenge> configurado como @app.route('/.well-known/acme-challenge/<challenge>') o [Let’s Encrypt](https://letsencrypt.org/) utiliza esse contexto para validar e gerar o certificado ssl. Você vai precisar substituir dentro do dict da função a chave e os valores gerados pelo [Let’s Encrypt](https://letsencrypt.org/) conforme o código:
   
 ```python
