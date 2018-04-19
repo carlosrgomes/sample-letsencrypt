@@ -41,6 +41,12 @@ cd letsencrypt
 ./letsencrypt-auto --help
 ```
 
+Configurando seu domínio
+---
+No Console do GCP temos que entrar no Settings do App Engine conforme pode observar na imagem.
+
+markdown
+![GitHub Logo](images/logo.png)
 
 
 
