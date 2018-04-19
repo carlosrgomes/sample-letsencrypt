@@ -210,7 +210,7 @@ Parabéns você acabou de gerar um certificado válido para sua aplicação!
 Você pode conferir seu certificado no site: 
 [sslshopper](https://www.sslshopper.com/)
 
-
+![App Engine SSL](images/ssl_shopper.png)
 
 
 
