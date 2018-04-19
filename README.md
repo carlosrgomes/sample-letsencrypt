@@ -22,4 +22,26 @@ gcloud init
 ```
 Siga as instruções e logue no seu projeto do GCP (Google Cloud Platform).
 
+Faça o download do repositório com o código fonte:
+
+```
+https://github.com/carlosrgomes/sample-letsencrypt.git
+```
+
+Entre no diretório sample-letsencrypt e faça o deploy da sua aplicação no App Engine com o comando:
+```
+gcloud app deploy
+```
+
+Faça o download do [Let’s Encrypt](https://letsencrypt.org/) em outro diretório:
+
+```
+git clone https://github.com/letsencrypt/letsencrypt
+cd letsencrypt
+./letsencrypt-auto --help
+```
+
+
+
+
 
