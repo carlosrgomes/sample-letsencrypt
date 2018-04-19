@@ -61,7 +61,7 @@ Dentro do arquivo main.py temos um contexto /.well-known/acme-challenge/<challen
 @app.route('/.well-known/acme-challenge/<challenge>')
 def letsencrypt_check(challenge):
     challenge_response = {
-        "J_Y_SHt8Pcvd6aFDtvhvunP2z99YGJj8kDeDRpCU6xg":"J_Y_SHt8Pcvd6aFDtvhvunP2777Jj8kDeDRpCU6xg.89n5ovJL777jM5TBFporRo0qvYDmO4nwmbvUxFk",
+        "chave_aqui":"valor_aqui",
         "<challenge_token>":"<challenge_response>"
     }
     return flask.Response(response= challenge_response[challenge], status=200, mimetype='text/plain')
