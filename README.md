@@ -53,6 +53,21 @@ Siga as intruções e configure o domínio de sua aplicação. No final das conf
 
 ![App Engine Dominio](images/dominio1.png)
 
+Alterando a aplicação para gerar SSL
+---
+Dentro do arquivo main.py temos um contexto /.well-known/acme-challenge/<challenge> configurado como @app.route('/.well-known/acme-challenge/<challenge>') o [Let’s Encrypt](https://letsencrypt.org/) utiliza esse contexto para validar e gerar o certificado ssl. Você vai precisar substituir dentro do dict da função a chave e os valores gerados pelo [Let’s Encrypt](https://letsencrypt.org/) conforme o código:
+  
+```python
+@app.route('/.well-known/acme-challenge/<challenge>')
+def letsencrypt_check(challenge):
+    challenge_response = {
+        "J_Y_SHt8Pcvd6aFDtvhvunP2z99YGJj8kDeDRpCU6xg":"J_Y_SHt8Pcvd6aFDtvhvunP2777Jj8kDeDRpCU6xg.89n5ovJL777jM5TBFporRo0qvYDmO4nwmbvUxFk",
+        "<challenge_token>":"<challenge_response>"
+    }
+    return flask.Response(response= challenge_response[challenge], status=200, mimetype='text/plain')
+```
+
+
 
 
 
