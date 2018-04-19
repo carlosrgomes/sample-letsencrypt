@@ -46,7 +46,7 @@ Configurando seu domínio
 No Console do GCP temos que entrar no Settings do App Engine conforme pode observar na imagem.
 
 
-(images/appenginesettings.png)
+![App Engine Settings](images/appenginesettings.png)
 
 
 
