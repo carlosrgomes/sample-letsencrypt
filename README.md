@@ -62,7 +62,7 @@ Dentro do arquivo main.py temos um contexto /.well-known/acme-challenge/<challen
 def letsencrypt_check(challenge):
     challenge_response = {
         "chave_aqui":"valor_aqui",
-        "<challenge_token>":"<challenge_response>"
+        "chave_aqui":"valor_aqui"
     }
     return flask.Response(response= challenge_response[challenge], status=200, mimetype='text/plain')
 ```
