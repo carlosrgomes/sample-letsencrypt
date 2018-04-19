@@ -41,6 +41,17 @@ cd letsencrypt
 ./letsencrypt-auto --help
 ```
 
+Configurando seu domínio
+---
+No Console do GCP temos que entrar no Settings do App Engine conforme pode observar na imagem.
+
+
+![App Engine Settings](images/appenginesettings.png)
+
+Siga as intruções e configure o domínio de sua aplicação. No final das configuraes você será capaz de entrar no site através do configurado. Por exemplo quando escrevi esse artigo o domínio da minha aplicação ficou acessível através do link:
+[http://easycloudbr.com/](http://easycloudbr.com/)
+
+![App Engine Dominio](images/dominio1.png)
 
 
 
